@@ -80,10 +80,6 @@ class UserService:
             update_fields.append("email = :email")
             params["email"] = user_update.email
 
-        if user_update.password is not None:
-            update_fields.append("hashed_password = :hashed_password")
-            params["hashed_password"] = hash_password(user_update.password)
-
         if user_update.role_id is not None:
             # Verificar existencia del nuevo rol
             role_exist = await self.db.execute(text("SELECT id FROM roles WHERE id = :r_id;"), {"r_id": user_update.role_id})
